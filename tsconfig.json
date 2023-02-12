@@ -1,0 +1,13 @@
+{
+    "compilerOptions": {
+        "moduleResolution": "node",
+        "noImplicitAny": false,
+        "removeComments": true,
+        "sourceMap": true,
+        "outDir": "./dist",
+        "esModuleInterop": true,
+        "allowJs": false,
+        "jsx": "react",
+        "strictNullChecks": true,
+    }
+}
