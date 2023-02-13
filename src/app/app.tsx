@@ -1,6 +1,4 @@
-import React from 'react';
-import { Routes } from './features/routes/main';
+import React from "react"
+import { Routes } from "./features/routes/main"
 
-export const App = () => {
-	return <Routes />
-};
+export const App = () => <Routes />

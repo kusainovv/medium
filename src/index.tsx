@@ -1,11 +1,10 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import { RootDocument } from './app/environment/system_features/rootDocument';
-import {App} from './app/app';
+import React from "react"
+import ReactDOM from "react-dom/client"
+import { rootDocument } from "./app/environment/system_features/rootDocument"
+import { App } from "./app/app"
 
+import "./index.css"
+import "./app/features/translate/i18n.ts"
 
-import './index.css';
-
-const root = ReactDOM.createRoot(RootDocument.getRoot());
-root.render(<App />);
-
+const root = ReactDOM.createRoot(rootDocument.getRoot())
+root.render(<App />)
