@@ -1,12 +1,19 @@
 import React from "react";
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import { withAuth } from "../../core/auth/hoc/withAuth";
-import { InitialPage } from "../../pages/initial";
+import { ArticlesPage } from "../../pages/articles";
+import { LoginPage } from "../../pages/login";
 
 const router = createBrowserRouter([
     {
         path: '/',
-        element: withAuth(InitialPage)
+        element: <LoginPage />
+        // element: withAuth(ArticlesPage)
+    },
+
+    {
+        path: '/login',
+        element: <LoginPage />
     }
 ]);
 

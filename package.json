@@ -6,6 +6,7 @@
   "type": "module",
   "scripts": {
     "serve": "npx nodemon src/server/index.js",
+    "build": "webpack --mode=production",
     "start": "webpack serve --stats-error-details",
     "lint": "npx eslint --init .ts --ext .tsx"
   },
