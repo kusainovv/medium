@@ -1,6 +1,6 @@
 import React from 'react';
-import {LoginLogotype} from './LoginLogotype';
-import {LoginWrapper} from './LoginWrapper';
+import {LoginLogotype} from './atom/LoginLogotype';
+import {LoginWrapper} from './atom/LoginWrapper';
 import {LoginFormContainer} from './container/LoginFormContainer';
 
 export const Login = () => <></>;
