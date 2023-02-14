@@ -1,4 +1,5 @@
 import {createSlice} from '@reduxjs/toolkit';
+import axios from 'axios';
 import {type store} from '../store';
 
 export const loginSlice = createSlice({
@@ -13,7 +14,13 @@ export const loginSlice = createSlice({
 	},
 	reducers: {
 		submitForm(state, payload) {
-			console.log('');
+			console.warn(payload.payload);
+			axios.post('http://localhost:2020/login', {
+				email: `${payload.payload.email as string}`,
+				password: `${payload.payload.password as string}`,
+			}).then(response => {
+				console.log(response);
+			}).catch(() => null);
 		},
 
 		loginSuccess(state) {
