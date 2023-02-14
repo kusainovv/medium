@@ -3,4 +3,4 @@ import {authController} from '../controllers/AuthController.js';
 
 export const route = new Router();
 
-route.use('/login', authController.login);
+route.post('/login', authController.login);

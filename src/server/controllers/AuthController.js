@@ -1,18 +1,23 @@
+import bcrypt, {compareSync} from 'bcrypt';
 import {UserModel} from '../models/User.js';
 
+// Root@gmail.com
+// root
 class AuthController {
 	async login(req, res) {
-		const userInfo = {email: req.body.email, password: req.body.password};
-		console.log(userInfo);
-		if (await UserModel.findOne({email: req.body.email})) {
-			throw new Error('');
+		const hashPassword = bcrypt.hashSync(req.body.password, bcrypt.genSaltSync(10));
+		const userInfo = {email: req.body.email, password: hashPassword};
+
+		const user = await UserModel.findOne({email: userInfo.email});
+		const isCorrectPassword = compareSync('root', userInfo.password);
+
+		if (user === null) {
+			res.status(403).json({errorMessage: 'Not exists'});
+		} else if (isCorrectPassword) {
+			res.status(200).json({success: true});
+		} else if (!isCorrectPassword) {
+			res.status(403).json({errorMessage: 'Wrong password'});
 		}
-
-		const user = await UserModel.create(userInfo);
-		user.save();
-
-		res.send({success: true});
-		return 'test';
 	}
 }
 

@@ -14,13 +14,14 @@ export const loginSlice = createSlice({
 	},
 	reducers: {
 		submitForm(state, payload) {
-			console.warn(payload.payload);
-			axios.post('http://localhost:2020/login', {
+			axios.post('http://localhost:2020/api/login', {
 				email: `${payload.payload.email as string}`,
 				password: `${payload.payload.password as string}`,
 			}).then(response => {
-				console.log(response);
-			}).catch(() => null);
+				console.warn(response);
+			}).catch(err => {
+				console.warn(err.response.data.errorMessage);
+			});
 		},
 
 		loginSuccess(state) {

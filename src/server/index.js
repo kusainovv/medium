@@ -1,13 +1,13 @@
 import express from 'express';
-import {route} from './routes/index.js';
 import mongoose from 'mongoose';
 import cors from 'cors';
+import {route} from './routes/index.js';
 
 const app = express();
 
 app.use(cors());
 app.use(express.json());
-app.use(route);
+app.use('/api', route);
 
 const MONGO_EMAIL = 'root';
 const MONGO_PASSWORD = 'root';
