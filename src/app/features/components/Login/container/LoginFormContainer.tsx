@@ -17,7 +17,7 @@ export const LoginFormContainer = () => {
 	const isError = useSelector((state: RootState) => state.login.error.isError);
 	const errorMessage = useSelector((state: RootState) => state.login.error.errorMessage);
 
-	const submitLoginForm = () => {
+	const dispatchLoginForm = () => {
 		void dispatch(submitForm({email: loginForm.email, password: loginForm.password}));
 	};
 
@@ -26,6 +26,14 @@ export const LoginFormContainer = () => {
 			...prevState,
 			[login_field]: text,
 		}));
+	};
+
+	const submitLoginForm = () => {
+		dispatchLoginForm();
+		setLoginForm({
+			email: '',
+			password: '',
+		});
 	};
 
 	return <LoginForm

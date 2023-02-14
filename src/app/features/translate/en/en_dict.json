@@ -13,5 +13,11 @@
 
             "submit_form": "Login"
         }
+    },
+
+
+    "error": {
+        "wrong_password": "Wrong password",
+        "wrong_email": "Wrong email"
     }
 }

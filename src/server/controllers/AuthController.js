@@ -13,12 +13,13 @@ class AuthController {
 		const isCorrectPassword = compareSync('root', userInfo.password);
 
 		if (user === null) {
-			res.status(403).json({errorMessage: 'Not exists'});
+			// Make schema for each error
+			res.status(403).json({errorMessage: 'error.wrong_email'});
 		} else if (isCorrectPassword) {
 			const accessToken = jwt.sign(userInfo, 'special_word', {expiresIn: '10m'});
 			res.status(200).json({jwtToken: accessToken});
 		} else if (!isCorrectPassword) {
-			res.status(403).json({errorMessage: 'Wrong password'});
+			res.status(403).json({errorMessage: 'error.wrong_password'});
 		}
 	}
 }
