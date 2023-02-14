@@ -8,6 +8,6 @@
         "esModuleInterop": true,
         "allowJs": false,
         "jsx": "react",
-        "strictNullChecks": true,
+        "strictNullChecks": true
     }
 }

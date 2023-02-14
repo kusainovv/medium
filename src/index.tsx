@@ -1,10 +1,14 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import {App} from './app/pages/app';
-import './index.css';
+import {rootDocument} from './app/environment/system_features/rootDocument';
+import {App} from './app/app';
 
-if (document?.getElementById('root')) {
-	const content = document.getElementById('root') ?? document.body;
-	const root = ReactDOM.createRoot(content);
-	root.render(<App />);
-}
+import './index.css';
+import './app/features/translate/i18n.ts';
+import {Provider} from 'react-redux';
+import {store} from './app/store/store';
+
+const root = ReactDOM.createRoot(rootDocument.getRoot());
+root.render(<Provider store={store}>
+	<App />
+</Provider>);
