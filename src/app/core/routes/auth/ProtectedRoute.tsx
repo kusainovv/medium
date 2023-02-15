@@ -12,7 +12,11 @@ export const ProtectedRoute: React.FC<{children: ReactNode}> = ({children}) => {
 
 	useEffect(() => {
 		if (localStorage.getItem('jwtToken')) {
-			void dispatch(compareToken(`${localStorage.getItem('jwtToken')!}`));
+			void dispatch(compareToken(`${localStorage.getItem('jwtToken')!}`)).then(response => {
+				if (response.meta.requestStatus === 'fulfilled') {
+					navigate('/articles');
+				}
+			});
 		} else {
 			navigate('/login');
 		}
