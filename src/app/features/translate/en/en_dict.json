@@ -14,20 +14,10 @@
             "submit_form": "Login"
         }
     },
+    
 
-                "password_placeholder": "Your password",
-                "password_label": "Input your password"
-            },
-
-<<<<<<< HEAD
-            "get_auth_data": "What is auth data?",
-
-            "submit_form": "Login"
-        }
-=======
     "error": {
         "wrong_password": "Wrong password",
         "wrong_email": "Wrong email"
->>>>>>> login-api-prod-restore
     }
 }
