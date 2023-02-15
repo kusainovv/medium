@@ -21,11 +21,12 @@ const runServer = async () => {
 	try {
 		mongoose.set('strictQuery', true);
 		await mongoose.connect(`mongodb+srv://${MONGO_EMAIL}:${MONGO_PASSWORD}@main.uwwbqo8.mongodb.net/?retryWrites=true&w=majority`);
+	} catch (err) {
+		throw new Error(err);
+	} finally {
 		app.listen(2020, () => {
 			console.log('Listen...');
 		});
-	} catch {
-
 	}
 };
 

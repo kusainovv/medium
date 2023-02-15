@@ -1,4 +1,4 @@
 import React from 'react';
-import {Routes} from './features/routes/main';
+import {MainRouting} from './features/routes';
 
-export const App = () => <Routes />;
+export const App = () => <MainRouting />;

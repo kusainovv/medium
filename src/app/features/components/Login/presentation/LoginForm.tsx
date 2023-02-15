@@ -2,7 +2,7 @@ import React from 'react';
 import {useTranslation} from 'react-i18next';
 import {ErrorMessage} from '../../../../core/alert/ErrorMessage';
 import {LoginFormInput} from '../atom/LoginFormInput';
-import {type LoginFormField} from '../container/LoginFormContainer';
+import {type LoginFormField} from '../types/Login';
 
 type LoginFormProps = {
 	isError: boolean;
