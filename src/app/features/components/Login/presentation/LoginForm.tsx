@@ -1,5 +1,6 @@
 import React from 'react';
 import {useTranslation} from 'react-i18next';
+import {ErrorMessage} from '../../../../core/alert/ErrorMessage';
 import {LoginFormInput} from '../atom/LoginFormInput';
 import {type LoginFormField} from '../container/LoginFormContainer';
 
@@ -23,7 +24,6 @@ export const LoginForm = (props: LoginFormProps) => {
 		`} onSubmit={e => {
 			e.preventDefault();
 			submitLoginForm();
-			return false;
 		}}>
 			<LoginFormInput
 				fieldValue={loginForm.email}
@@ -73,6 +73,8 @@ export const LoginForm = (props: LoginFormProps) => {
     		`}>
 				{t('page.login.submit_form')}
 			</button>
+
+			<ErrorMessage isError={isError} errorMessage={t(errorMessage)} />
 		</form>
 	);
 };

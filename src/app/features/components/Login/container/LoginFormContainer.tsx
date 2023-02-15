@@ -1,3 +1,4 @@
+import {type Action, type ThunkDispatch} from '@reduxjs/toolkit';
 import React, {useState} from 'react';
 import {useDispatch} from 'react-redux';
 import {useSelector} from 'react-redux';
@@ -7,7 +8,7 @@ import {LoginForm} from '../presentation/LoginForm';
 export type LoginFormField = 'email' | 'password';
 
 export const LoginFormContainer = () => {
-	const dispatch = useDispatch();
+	const dispatch = useDispatch<ThunkDispatch<undefined, undefined, Action>>();
 	const [loginForm, setLoginForm] = useState({
 		email: '',
 		password: '',
@@ -16,8 +17,8 @@ export const LoginFormContainer = () => {
 	const isError = useSelector((state: RootState) => state.login.error.isError);
 	const errorMessage = useSelector((state: RootState) => state.login.error.errorMessage);
 
-	const submitLoginForm = () => {
-		dispatch(submitForm(loginForm));
+	const dispatchLoginForm = () => {
+		void dispatch(submitForm({email: loginForm.email, password: loginForm.password}));
 	};
 
 	const changeLoginField = (login_field: LoginFormField, text: string) => {
@@ -25,6 +26,14 @@ export const LoginFormContainer = () => {
 			...prevState,
 			[login_field]: text,
 		}));
+	};
+
+	const submitLoginForm = () => {
+		dispatchLoginForm();
+		setLoginForm({
+			email: '',
+			password: '',
+		});
 	};
 
 	return <LoginForm

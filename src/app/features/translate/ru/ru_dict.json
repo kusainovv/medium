@@ -13,5 +13,11 @@
 
             "submit_form": "Логин"
         }
+    },
+
+
+    "error": {
+        "wrong_password": "Неправильный пароль",
+        "wrong_email": "Неправильный email"
     }
 }
