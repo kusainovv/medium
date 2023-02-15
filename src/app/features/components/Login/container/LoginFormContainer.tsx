@@ -2,24 +2,22 @@ import {type Action, type ThunkDispatch} from '@reduxjs/toolkit';
 import React, {useState} from 'react';
 import {useDispatch} from 'react-redux';
 import {useSelector} from 'react-redux';
-import {type RootState, submitForm} from '../../../../store/slice/auth';
+import {useNavigate} from 'react-router-dom';
+import {submitForm} from '../../../../store/slice/auth';
+import {type RootState} from '../../../../store/store';
 import {LoginForm} from '../presentation/LoginForm';
-
-export type LoginFormField = 'email' | 'password';
+import {type LoginFormField, type LoginFormFields} from '../types/Login';
 
 export const LoginFormContainer = () => {
 	const dispatch = useDispatch<ThunkDispatch<undefined, undefined, Action>>();
-	const [loginForm, setLoginForm] = useState({
+	const navigate = useNavigate();
+	const [loginForm, setLoginForm] = useState<LoginFormFields>({
 		email: '',
 		password: '',
 	});
 
-	const isError = useSelector<any>((state: RootState) => state.auth.error.isError);
-	const errorMessage = useSelector<any>((state: RootState) => state.auth.error.errorMessage);
-
-	const dispatchLoginForm = () => {
-		void dispatch(submitForm({email: loginForm.email, password: loginForm.password}));
-	};
+	const isError = useSelector((state: RootState) => state.auth.error.isError);
+	const errorMessage = useSelector((state: RootState) => state.auth.error.errorMessage);
 
 	const changeLoginField = (login_field: LoginFormField, text: string) => {
 		setLoginForm(prevState => ({
@@ -29,10 +27,14 @@ export const LoginFormContainer = () => {
 	};
 
 	const submitLoginForm = () => {
-		dispatchLoginForm();
 		setLoginForm({
-			email: loginForm.email,
-			password: loginForm.password,
+			email: '',
+			password: '',
+		});
+		void dispatch(submitForm(loginForm)).then(response => {
+			if (response.meta.requestStatus === 'fulfilled') {
+				navigate('/articles');
+			}
 		});
 	};
 

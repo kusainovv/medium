@@ -1,20 +1,16 @@
 import {createAsyncThunk, createSlice} from '@reduxjs/toolkit';
-import axios from 'axios';
-import { store } from '../store';
+import {AuthService} from '../../http/services/AuthService';
 
 export const compareToken = createAsyncThunk(
 	'auth/compareToken',
 	async (jwtToken: string) => {
-		const response = axios.post('http://localhost:2020/api/login_token', {
-			jwtToken,
-		}).then(response => ({
-			email: response.data.email,
-			password: response.data.password,
-			jwtToken: response.data.jwtToken,
+		const response = AuthService.compareToken(jwtToken).then(response => ({
+			email: `${response.data.email as string}`,
+			password: `${response.data.password as string}`,
+			jwtToken: `${response.data.jwtToken as string}`,
 		})).catch(err => {
 			throw new Error(`${err.response.data.errorMessage as string}`);
 		});
-
 		return response;
 	},
 );
@@ -22,17 +18,11 @@ export const compareToken = createAsyncThunk(
 export const submitForm = createAsyncThunk(
 	'auth/submitForm',
 	async (userInfo: {email: string; password: string}) => {
-		const response = axios.post('http://localhost:2020/api/login', {
-			email: `${userInfo.email}`,
-			password: `${userInfo.password}`,
-		}, {
-			withCredentials: true,
-		}).then(r => ({
+		const response = AuthService.submitForm(userInfo.email, userInfo.password).then(r => ({
 			jwtToken: `${r.data.jwtToken as string}`,
 		})).catch(err => {
 			throw new Error(`${err.response.data.errorMessage as string}`);
 		});
-
 		return response;
 	},
 );
@@ -63,14 +53,13 @@ export const authSlice = createSlice({
 
 		builder.addCase(compareToken.fulfilled, (state, action) => {
 			state.isAuth = true;
-			localStorage.setItem('jwtToken', `${action.payload.jwtToken as string}`);
+			localStorage.setItem('jwtToken', `${action.payload.jwtToken}`);
 		});
 
-		builder.addCase(compareToken.rejected, (state, action) => {
+		builder.addCase(compareToken.rejected, state => {
 			state.isAuth = false;
 		});
 	},
 });
 
-export type RootState = ReturnType<typeof store.getState>;
 export const authReducer = authSlice.reducer;

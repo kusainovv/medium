@@ -4,4 +4,4 @@ import {authController} from '../controllers/AuthController.js';
 export const route = new Router();
 
 route.post('/login', authController.login);
-route.post('/login_token', authController.compareToken);
+route.post('/access_token', authController.compareToken);

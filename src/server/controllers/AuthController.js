@@ -12,9 +12,9 @@ class AuthController {
 		const user = await UserModel.findOne({email: userInfo.email});
 		const isCorrectPassword = compareSync('root', userInfo.password);
 		if (user === null) {
-			// Make schema for each error
 			res.status(403).json({errorMessage: 'error.wrong_email'});
 		} else if (isCorrectPassword) {
+			console.log(userInfo);
 			const accessToken = jwt.sign(userInfo, 'special_word', {expiresIn: '100m'});
 			res.status(200).json({jwtToken: accessToken});
 		} else if (!isCorrectPassword) {
@@ -25,12 +25,13 @@ class AuthController {
 	async compareToken(req, res) {
 		const decodedUserData = jwt.verify(req.body.jwtToken, 'special_word');
 		const user = await UserModel.findOne({email: decodedUserData.email});
+
 		if (user !== null) {
-			const accessToken = jwt.sign({email: decodedUserData.email, password: decodedUserData.password}, 'special_word', {expiresIn: '100m'});
+			const refreshToken = jwt.sign({email: decodedUserData.email, password: decodedUserData.password}, 'special_word', {expiresIn: '100m'});
 			res.status(200).json({
 				email: decodedUserData.email,
 				password: decodedUserData.password,
-				jwtToken: accessToken,
+				jwtToken: refreshToken,
 			});
 		}
 	}
