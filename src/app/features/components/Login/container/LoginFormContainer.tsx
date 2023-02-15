@@ -2,7 +2,7 @@ import {type Action, type ThunkDispatch} from '@reduxjs/toolkit';
 import React, {useState} from 'react';
 import {useDispatch} from 'react-redux';
 import {useSelector} from 'react-redux';
-import {submitForm, type RootState} from '../../../../store/slice/login';
+import {type RootState, submitForm} from '../../../../store/slice/auth';
 import {LoginForm} from '../presentation/LoginForm';
 
 export type LoginFormField = 'email' | 'password';
@@ -14,8 +14,8 @@ export const LoginFormContainer = () => {
 		password: '',
 	});
 
-	const isError = useSelector((state: RootState) => state.login.error.isError);
-	const errorMessage = useSelector((state: RootState) => state.login.error.errorMessage);
+	const isError = useSelector<any>((state: RootState) => state.auth.error.isError);
+	const errorMessage = useSelector<any>((state: RootState) => state.auth.error.errorMessage);
 
 	const dispatchLoginForm = () => {
 		void dispatch(submitForm({email: loginForm.email, password: loginForm.password}));
@@ -31,8 +31,8 @@ export const LoginFormContainer = () => {
 	const submitLoginForm = () => {
 		dispatchLoginForm();
 		setLoginForm({
-			email: '',
-			password: '',
+			email: loginForm.email,
+			password: loginForm.password,
 		});
 	};
 
