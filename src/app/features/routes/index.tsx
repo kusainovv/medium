@@ -9,5 +9,7 @@ export const MainRouting = () => <Routes>
 		<Outlet />
 	</ProtectedRoute>} />
 	<Route path='login' element={<LoginPage />} />
-	<Route path='articles' element={<ArticlesPage />} />
+	<Route path='articles' element={<ProtectedRoute>
+		<ArticlesPage />
+	</ProtectedRoute>} />
 </Routes>;

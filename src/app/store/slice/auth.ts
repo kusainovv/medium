@@ -36,6 +36,11 @@ export const authSlice = createSlice({
 			isError: false,
 			errorMessage: '',
 		},
+
+		profile: {
+			email: '',
+			password: '',
+		},
 	},
 	reducers: {},
 	extraReducers(builder) {
@@ -53,6 +58,8 @@ export const authSlice = createSlice({
 
 		builder.addCase(compareToken.fulfilled, (state, action) => {
 			state.isAuth = true;
+			state.profile.email = action.payload.email;
+			state.profile.password = action.payload.password;
 			localStorage.setItem('jwtToken', `${action.payload.jwtToken}`);
 		});
 

@@ -8,6 +8,7 @@ import {type RootState} from '../../../../../store/store';
 
 export const ArticleProfile = () => {
 	const isPopup = useSelector((state: RootState) => state.popup.isPopup);
+	const profile = useSelector((state: RootState) => state.auth.profile);
 	const dispatch = useDispatch<ThunkDispatch<undefined, undefined, Action>>();
 	return <div className={`
         ml-5
@@ -22,7 +23,7 @@ export const ArticleProfile = () => {
         `}></div>
 		<h4 className={`
             text-base
-        `}>Ratmir Kusainov</h4>
+        `}>{profile.email}</h4>
 		<p className={`
             text-sm
             w-fit
@@ -34,12 +35,11 @@ export const ArticleProfile = () => {
 
 		<Popup backgroundColorCloseZone='rgb(0,0,0,0.6)' isOpened={isPopup} onCloseHandler={() => {
 			dispatch(closePopup());
-		}} transition='1s' backgroundContent='white'>
+		}} transition='0.4s' backgroundContent='white' chooseOnly={false}>
 			<div className={`
                 p-5
             `}>
-				<input type='text' placeholder='Name' />
-				<input type='text' placeholder='Password' />
+				<input type='text' placeholder='Name' value={profile.email} />
 				<input type='text' placeholder='Image' />
 			</div>
 		</Popup>

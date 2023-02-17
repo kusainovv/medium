@@ -16,6 +16,10 @@ export const ProtectedRoute: React.FC<{children: ReactNode}> = ({children}) => {
 				if (response.meta.requestStatus === 'fulfilled') {
 					navigate('/articles');
 				}
+
+				if (response.meta.requestStatus === 'rejected') {
+					navigate('/login');
+				}
 			});
 		} else {
 			navigate('/login');
