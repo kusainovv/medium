@@ -5,7 +5,7 @@ export const getArticles = createAsyncThunk(
 	'articles/getArticles',
 	async () => {
 		const response = ArticlesService.getArticles().then(r => ({
-			articles: Array(r.data.articles),
+			articles: r.data.articles,
 		})).catch(err => {
 			throw new Error(`${err.response.data.errorMessage as string}`);
 		});
@@ -21,7 +21,7 @@ export const articlesSlice = createSlice({
 	reducers: {},
 	extraReducers(builder) {
 		builder.addCase(getArticles.fulfilled, (state, action) => {
-			state.articles = Array(action.payload.articles);
+			state.articles = action.payload.articles;
 		});
 
 		builder.addCase(getArticles.rejected, (state, action) => {

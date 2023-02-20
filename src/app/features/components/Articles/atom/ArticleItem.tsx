@@ -1,6 +1,13 @@
 import React from 'react';
 
-export const ArticleItem = () => <div className={`
+type ArticleItemProps = {
+	title: string;
+	description: string;
+	tag: string;
+	community: string;
+};
+
+export const ArticleItem = (props: ArticleItemProps) => <div className={`
         mt-10
         mb-10
         p-5
@@ -9,10 +16,13 @@ export const ArticleItem = () => <div className={`
         cursor-pointer
     `}>
 	<div>
-		<p className={`
-            text-sm
-            mb-2
-        `}>Publsished in Dev Genius</p>
+		{
+			props.community
+            && <p className={`
+                text-sm
+                mb-2
+            `}>Publsished in Dev Genius</p>
+		}
 		<div className={`
             flex
         `}>
@@ -21,11 +31,11 @@ export const ArticleItem = () => <div className={`
                     font-bold
                     text-xl
                     mb-2
-                `}>How to change SVG color dynamically</p>
+                `}>{props.title}</p>
 				<p className={`
                     text-sm
                 `}>
-                    Probably solution. If you will google this question you will find the answer in StackOverflow.
+					{props.description}
 				</p>
 			</div>
 			<div className={`
@@ -46,7 +56,7 @@ export const ArticleItem = () => <div className={`
             rounded-xl
             bg-gray-200
         `}>
-			<p>Frontend</p>
+			<p>{props.tag}</p>
 		</div>
 	</div>
 </div>;

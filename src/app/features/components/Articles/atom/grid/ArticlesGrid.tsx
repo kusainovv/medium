@@ -1,5 +1,6 @@
 import React from 'react';
 import {useSelector} from 'react-redux';
+import {Link} from 'react-router-dom';
 import {type RootState} from '../../../../../store/store';
 import {ArticleItem} from '../ArticleItem';
 import {ArticleProfile} from './ArticleProfile';
@@ -27,7 +28,9 @@ export const ArticlesGrid = () => {
             `}>
 				{
 					articles.map(value => <React.Fragment key={value}>
-						<ArticleItem />
+						<Link to={`/articles/${value.id}`}>
+							<ArticleItem title={value.title} description={value.description} tag={value.tag} community={value.community} />
+						</Link>
 					</React.Fragment>)
 				}
 			</div>
