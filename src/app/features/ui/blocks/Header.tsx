@@ -1,7 +1,7 @@
 import React from 'react';
 import {Logotype} from '../../../../../public/img/Logotype';
 import {WriteIcon} from '../../../../../public/img/WriteIcon';
-
+//
 export const Header = () => (
 	<header
 		className={`
