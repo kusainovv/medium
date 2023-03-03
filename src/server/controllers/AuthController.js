@@ -14,8 +14,7 @@ class AuthController {
 		if (user === null) {
 			res.status(403).json({errorMessage: 'error.wrong_email'});
 		} else if (isCorrectPassword) {
-			console.log(userInfo);
-			const accessToken = jwt.sign(userInfo, 'special_word', {expiresIn: '100m'});
+			const accessToken = jwt.sign({email: userInfo.email}, 'special_word');
 			res.status(200).json({jwtToken: accessToken});
 		} else if (!isCorrectPassword) {
 			res.status(403).json({errorMessage: 'error.wrong_password'});
@@ -27,7 +26,7 @@ class AuthController {
 		const user = await UserModel.findOne({email: decodedUserData.email});
 
 		if (user !== null) {
-			const refreshToken = jwt.sign({email: decodedUserData.email, password: decodedUserData.password}, 'special_word', {expiresIn: '100m'});
+			const refreshToken = jwt.sign({email: decodedUserData.email, password: decodedUserData.password}, 'special_word');
 			res.status(200).json({
 				email: decodedUserData.email,
 				password: decodedUserData.password,
