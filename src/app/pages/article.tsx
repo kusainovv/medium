@@ -1,5 +1,4 @@
 import React from 'react';
+import {ArticleInterface} from '../features/ui/article';
 
-export const ArticlePage = () => <div>
-        article
-</div>;
+export const ArticlePage = () => <ArticleInterface />;
