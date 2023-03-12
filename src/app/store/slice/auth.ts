@@ -31,6 +31,7 @@ export const authSlice = createSlice({
 	name: 'auth',
 	initialState: {
 		isAuth: false,
+		isPending: false,
 
 		error: {
 			isError: false,
@@ -53,13 +54,19 @@ export const authSlice = createSlice({
 		builder.addCase(submitForm.rejected, (state, action) => {
 			state.isAuth = false;
 			state.error.isError = true;
+			state.isPending = false;
 			state.error.errorMessage = `${action.error.message!}`;
+		});
+
+		builder.addCase(submitForm.pending, (state, action) => {
+			state.isPending = true;
 		});
 
 		builder.addCase(compareToken.fulfilled, (state, action) => {
 			state.isAuth = true;
 			state.profile.email = action.payload.email;
 			state.profile.password = action.payload.password;
+			state.isPending = false;
 			localStorage.setItem('jwtToken', `${action.payload.jwtToken}`);
 		});
 

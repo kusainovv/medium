@@ -1,11 +1,13 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {useTranslation} from 'react-i18next';
-import {ErrorMessage} from '../../../../core/alert/ErrorMessage';
+import {useNotificationContext} from '../../../../core/components/Notify';
+import {Spinner} from '../../../../core/components/Spinner';
 import {LoginFormInput} from '../atom/LoginFormInput';
 import {type LoginFormField} from '../types/Login';
 
 type LoginFormProps = {
 	isError: boolean;
+	isPending: boolean;
 	errorMessage: string;
 	loginForm: {email: string; password: string};
 	submitLoginForm: () => void;
@@ -15,6 +17,13 @@ type LoginFormProps = {
 export const LoginForm = (props: LoginFormProps) => {
 	const {t} = useTranslation();
 	const {isError, changeLoginField, errorMessage, loginForm, submitLoginForm} = props;
+	const {notify} = useNotificationContext();
+
+	useEffect(() => {
+		if (isError) {
+			notify({type: 'error', title: t(errorMessage), content: 'Проверьте корректность данных'});
+		}
+	}, [isError]);
 
 	return (
 		<form className={`
@@ -65,16 +74,16 @@ export const LoginForm = (props: LoginFormProps) => {
 				m-auto
 				mt-3
 				p-2
+				relative
+				min-h-[40px]
 				bg-green-500
 				w-inherit
 				text-white
 				rounded-md
 				pointer
     		`}>
-				{t('page.login.submit_form')}
+				{ props.isPending ? <Spinner /> : t('page.login.submit_form')}
 			</button>
-
-			<ErrorMessage isError={isError} errorMessage={t(errorMessage)} />
 		</form>
 	);
 };

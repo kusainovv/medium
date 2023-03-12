@@ -5,6 +5,7 @@
     "main": "index.js",
     "type": "module",
     "scripts": {
+        "prod_serve": "node src/server/index.js",
         "serve": "nodemon src/server/index.js",
         "build": "webpack --mode=production",
         "start": "webpack serve --stats-error-details",

@@ -1,8 +1,10 @@
+/* eslint-disable no-negated-condition */
+/* eslint-disable capitalized-comments */
 import bcrypt, {compareSync} from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import {UserModel} from '../models/User.js';
 
-// Root@gmail.com
+// root@gmail.com
 // root
 class AuthController {
 	async login(req, res) {
@@ -18,6 +20,8 @@ class AuthController {
 			res.status(200).json({jwtToken: accessToken});
 		} else if (!isCorrectPassword) {
 			res.status(403).json({errorMessage: 'error.wrong_password'});
+		} else {
+			res.status(500).json({errorMessage: 'Что-то случилось'});
 		}
 	}
 

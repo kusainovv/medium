@@ -1,9 +1,9 @@
-import styled from "@emotion/styled";
-import React, { ReactNode, useState } from "react";
-import { ThemeMode } from "./ThemeProvider";
+import styled from '@emotion/styled';
+import React, {type ReactNode, useState} from 'react';
+import {type ThemeMode} from './ThemeProvider';
 
-const AccordionItem = styled.div<{ theme: ThemeMode }>`
-  background-color: ${ props => props.theme === 'dark' ? '#404040' : 'whitesmoke' };
+const AccordionItem = styled.div<{theme: ThemeMode}>`
+  background-color: ${props => props.theme === 'dark' ? '#404040' : 'whitesmoke'};
 `;
 
 const AccordionTitle = styled.div`
@@ -23,25 +23,27 @@ const AccordionTitleText = styled.p`
   margin: 0;
 `;
 
-interface AccordionProps {
-  children: ReactNode, 
-  title: string, 
-  theme: ThemeMode
-}
+type AccordionProps = {
+	children: ReactNode;
+	title: string;
+	theme: ThemeMode;
+};
 
 /**
  * @title the title of accordion
  */
-export const Accordion : React.FC<AccordionProps> = ({children, title, theme}) => {
-    const [isActive, setIsActive] = useState(false);
+export const Accordion: React.FC<AccordionProps> = ({children, title, theme}) => {
+	const [isActive, setIsActive] = useState(false);
 
-    return (
-      <AccordionItem theme={theme}>
-        <AccordionTitle onClick={() => setIsActive(!isActive)}>
-          <AccordionTitleText>{title}</AccordionTitleText>
-          {isActive ? '-' : '+'}
-        </AccordionTitle>
-        { isActive ? <AccordionContent>{children}</AccordionContent> : null }
-      </AccordionItem>
-    );
-}
+	return (
+		<AccordionItem theme={theme}>
+			<AccordionTitle onClick={() => {
+				setIsActive(!isActive);
+			}}>
+				<AccordionTitleText>{title}</AccordionTitleText>
+				{isActive ? '-' : '+'}
+			</AccordionTitle>
+			{ isActive ? <AccordionContent>{children}</AccordionContent> : null }
+		</AccordionItem>
+	);
+};

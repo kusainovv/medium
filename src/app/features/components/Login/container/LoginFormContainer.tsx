@@ -17,6 +17,7 @@ export const LoginFormContainer = () => {
 	});
 
 	const isError = useSelector((state: RootState) => state.auth.error.isError);
+	const isPending = useSelector((state: RootState) => state.auth.isPending);
 	const errorMessage = useSelector((state: RootState) => state.auth.error.errorMessage);
 
 	const changeLoginField = (login_field: LoginFormField, text: string) => {
@@ -41,6 +42,7 @@ export const LoginFormContainer = () => {
 	return <LoginForm
 		loginForm={loginForm}
 		isError={isError}
+		isPending={isPending}
 		errorMessage={errorMessage}
 		submitLoginForm={submitLoginForm}
 		changeLoginField={changeLoginField}
